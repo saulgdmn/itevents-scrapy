@@ -24,7 +24,7 @@ DOWNLOADER_MIDDLEWARES = {
 FEED_EXPORT_ENCODING = 'utf-8'
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = 'chromedriver'
+SELENIUM_DRIVER_EXECUTABLE_PATH = './chromedriver'
 SELENIUM_DRIVER_ARGUMENTS = ['-headless']
 
 ROTATING_PROXY_LIST = [
@@ -55,8 +55,6 @@ ROTATING_PROXY_LIST = [
     'https://daveklien:6A1IVqkat9uTiBMwnAl@104.144.253.136:2089',
 
 ]
-
-#ROTATING_PROXY_BAN_POLICY = 'itevents.policy.ItEventsPolicy'
 
 USER_AGENTS = [
     'Mozilla/5.0 (iPad; CPU OS 8_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12D508 Safari/600.1.4',
