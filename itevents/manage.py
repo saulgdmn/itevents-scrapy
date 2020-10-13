@@ -17,8 +17,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 log = logging.getLogger(__name__)
 
 DELIVERY_STREAM_NAME = 'hm-scraping-data'
-DATA_PATH = '.\\data\\'
-FIREHOSE_RECORDS = '.\\data\\firehose_records.json'
+DATA_PATH = './data/'
+FIREHOSE_RECORDS = './data/firehose_records.json'
 SPIDER_NAMES = [
     'cybersummitusa',
     'dataconnectors',
