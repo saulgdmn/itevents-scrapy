@@ -88,7 +88,7 @@ def run_crawl(spider_name, force=False):
     subprocess.run(
         args='scrapy crawl {} -s FEED_URI="{}{}.jsonlines"'.format(
             spider_name, DATA_PATH, spider_name),
-        shell=False,
+        shell=True,
         encoding='utf-8')
 
     log.info('Finished!')
