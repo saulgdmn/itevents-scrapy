@@ -24,6 +24,9 @@ def retrieve_location(raw_locations_set):
         if raw_loc is None:
             continue
 
+        if not raw_loc:
+            continue
+
         nom = Nominatim(user_agent="iteventscraper")
         loc = nom.geocode(cleanup_text(raw_loc), language='en')
 
@@ -82,6 +85,8 @@ def retrieve_date(date):
         return None
     if '-' in date:
         date = date.split('-')[0]
+    if '-' in date:
+        date = date.split('+')[0]
 
     date = dateparser.parse(date)
     if date:
@@ -101,11 +106,13 @@ class IteventsPipeline:
         if item.get('title', None):
             item['title'] = cleanup_text(item['title'])
         if item.get('summary', None):
-            item['summary'] = '\n'.join(cleanup_text(x) for x in item['summary'] if x)
+            item['summary'] = cleanup_text(' '.join(x for x in item['summary'] if x))
         if item.get('date', None):
             item['date'] = retrieve_date(item['date'])
 
         item['tags'] = [cleanup_tag(tag) for tag in item.get('tags', [])]
+        if item.get('address', None):
+            item['address'] = cleanup_text(item['address'])
 
         item.update(retrieve_location(item.get('raw_locations_set', [])))
         del item['raw_locations_set']

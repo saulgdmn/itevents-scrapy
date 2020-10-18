@@ -39,11 +39,14 @@ regex==2020.10.11
 requests==2.24.0
 s3transfer==0.3.3
 Scrapy==2.3.0
+scrapy-rotating-proxies==0.6.2
 scrapy-selenium==0.0.7
+Scrapy-UserAgents==0.0.1
 selenium==3.141.0
 service-identity==18.1.0
 six==1.15.0
 Twisted==20.3.0
+typing==3.7.4.3
 tzlocal==2.1
 urllib3==1.25.10
 w3lib==1.22.0

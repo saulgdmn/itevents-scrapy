@@ -26,7 +26,9 @@ SPIDER_NAMES = [
     'futureconevents',
     'infosecconferences',
     'secureworldexpo',
-    'allevents'
+    'allevents',
+    'eventbrite',
+    'meetup'
 ]
 
 

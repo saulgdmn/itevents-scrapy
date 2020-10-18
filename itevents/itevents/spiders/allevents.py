@@ -24,7 +24,6 @@ class AlleventsSpider(scrapy.Spider):
                     'country': a.xpath('text()').get(default=None)
                 }
             )
-            break
 
     def parse_cities_page(self, response: Response):
         for a in response.xpath('//a[@class="skyload"]'):
@@ -36,7 +35,6 @@ class AlleventsSpider(scrapy.Spider):
                     'city': a.xpath('text()').get(default=None)
                 }
             )
-            break
 
     def parse_events_page(self, response: Response):
         for href in response.xpath('//div[@class="title"]/a/@href'):
@@ -75,7 +73,7 @@ class AlleventsSpider(scrapy.Spider):
             'event_website': response.xpath('(//span[contains(text(), "Web")]/../text())[2]').get(default=None) or response.url
         }
 
-        item['event_id'] = hashlib.sha256(bytes(response.url, 'utf8')).hexdigest()
+        item['event_id'] = hashlib.sha256(bytes(item['meta']['direct_url'], 'utf8')).hexdigest()
         item['title'] = response.xpath('//h1/text()').get(default=None)
         item['summary'] = [response.xpath('//div[@class="event-description-html"]/text()').get(default='')] + response.xpath('//div[@class="event-description-html"]//*/text()').getall()
         item['date'] = response.xpath('//span[@class="event-date" or contains(@class,"display_start_time")]/text()').get(default=None)
@@ -87,11 +85,12 @@ class AlleventsSpider(scrapy.Spider):
         if item['virtual']:
             item['address'] = None
         else:
-            item['address'] = ' '.join(response.xpath('//span[@class="full-venue"]/text()').getall())
+            raw_address = response.xpath('//span[@class="full-venue"]/text()').getall()
+            item['address'] = ' '.join(raw_address)
             item['raw_locations_set'] = [
-                ' '.join(item['address'].split(',')[-4:]),
-                ' '.join(item['address'].split(',')[-3:]),
-                ' '.join(item['address'].split(',')[-2:]),
+                ' '.join(raw_address[-4:]),
+                ' '.join(raw_address[-3:]),
+                ' '.join(raw_address[-2:]),
             ]
 
         item['raw_locations_set'].append(response.meta.get('country') + ' ' + response.meta.get('city'))
